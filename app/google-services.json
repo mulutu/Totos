@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "619488894932",
+    "firebase_url": "https://totos-c6d99.firebaseio.com",
+    "project_id": "totos-c6d99",
+    "storage_bucket": "totos-c6d99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619488894932:android:479eedf13f1afd1f8ec041",
+        "android_client_info": {
+          "package_name": "com.mulutu.totos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619488894932-fm2v4idvlp7o9r7vrd91vnu2hhde5bct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhAhayOA7swfe7bZNTHlgoEotOEpMX6ik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619488894932-fm2v4idvlp7o9r7vrd91vnu2hhde5bct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
