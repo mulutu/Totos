@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +21,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mulutu.totos.models.Child;
+import com.mulutu.totos.models.Clinic;
 import com.mulutu.totos.utils.ChildrenRecyclerAdapter;
+import com.mulutu.totos.utils.ClinicsRecyclerAdapter;
 import com.mulutu.totos.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
@@ -35,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
 
-    private TextView message;
+    private String user_id;
+
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private RecyclerView recyclerView;
+    private RecyclerView childrenRecyclerView, clinicRecyclerView;
     private ChildrenRecyclerAdapter childrenRecyclerAdapterAdapter;
+    private ClinicsRecyclerAdapter clinicRecyclerAdapterAdapter;
     private ArrayList<Child> childArrayList = new ArrayList<>();
+    private ArrayList<Clinic> clinicArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +55,22 @@ public class MainActivity extends AppCompatActivity {
 
         prepareToolbar();
 
-        prepareRecycler();
+        prepareVariables();
 
+        prepareChildrenRecycler();
+
+        prepareClinicsRecycler();
+
+        getChildren();
+
+        getClinics();
+
+        floatingButton();
+    }
+
+    private void prepareVariables() {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        message = findViewById(R.id.displayMessage);
 
         if (mAuth.getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -62,15 +78,34 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ReadSingleContact();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser.getUid();
 
-        floatingButton();
+        Log.d(TAG, "currentUser >>>>>>> : " + currentUser.getUid() + "   TuAANhCUIsNQGpFJNQdFVWkRJyB3");
     }
 
-    private void prepareFarmsProjectsData(ArrayList<Child> childList) {
+    private void prepareClinicData(ArrayList<Clinic> clinicList) {
+        clinicRecyclerAdapterAdapter.notifyDataSetChanged();
+        final ArrayList clinicArrayList_ = clinicList;
+        clinicRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, clinicRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                /*Child child = (Child) childArrayList_.get(position);
+                Intent intent = new Intent(MainActivity.this, ChildDetailsActivity.class);
+                intent.putExtra("child_id", child.get_id());
+                startActivity(intent);*/
+                //Toast.makeText(FarmDetailsActivity.this, "CLICK ON CARD", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+    }
+
+    private void prepareChildrenData(ArrayList<Child> childList) {
         childrenRecyclerAdapterAdapter.notifyDataSetChanged();
         final ArrayList childArrayList_ = childList;
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
+        childrenRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, childrenRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Child child = (Child) childArrayList_.get(position);
@@ -79,20 +114,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 //Toast.makeText(FarmDetailsActivity.this, "CLICK ON CARD", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onLongClick(View view, int position) {
             }
         }));
     }
 
-    private void prepareRecycler() {
-        recyclerView = (RecyclerView) findViewById(R.id.children_recyclerview);
+    private void prepareChildrenRecycler() {
+        childrenRecyclerView = (RecyclerView) findViewById(R.id.children_recyclerview);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setHasFixedSize(true);
+        childrenRecyclerView.setLayoutManager(mLayoutManager);
+        childrenRecyclerView.setHasFixedSize(true);
         childrenRecyclerAdapterAdapter = new ChildrenRecyclerAdapter(childArrayList);
-        recyclerView.setAdapter(childrenRecyclerAdapterAdapter);
+        childrenRecyclerView.setAdapter(childrenRecyclerAdapterAdapter);
+    }
+
+    private void prepareClinicsRecycler() {
+        clinicRecyclerView = (RecyclerView) findViewById(R.id.clinic_recyclerview);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        clinicRecyclerView.setLayoutManager(mLayoutManager);
+        clinicRecyclerView.setHasFixedSize(true);
+        clinicRecyclerAdapterAdapter = new ClinicsRecyclerAdapter(clinicArrayList);
+        clinicRecyclerView.setAdapter(clinicRecyclerAdapterAdapter);
     }
 
     private void floatingButton() {
@@ -127,9 +170,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void ReadSingleContact() {
+    private void getClinics() {
+        db.collection("clinics")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot documentSnapshots = task.getResult();
+
+                            if (!documentSnapshots.isEmpty()) {
+                                for (DocumentSnapshot snapshot : documentSnapshots) {
+                                    Clinic clinic = snapshot.toObject(Clinic.class);
+                                    clinic.setId(snapshot.getId());
+                                    clinicArrayList.add(clinic);
+                                }
+                            }
+                            prepareClinicData(clinicArrayList);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    private void getChildren() {
         db.collection("children")
-                .whereEqualTo("parent_id", "wnhdGuMcLEhSaPvBIz4l")
+                .whereEqualTo("parent_id", "TuAANhCUIsNQGpFJNQdFVWkRJyB3")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -144,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                                     childArrayList.add(child);
                                 }
                             }
-                            prepareFarmsProjectsData(childArrayList);
+                            prepareChildrenData(childArrayList);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

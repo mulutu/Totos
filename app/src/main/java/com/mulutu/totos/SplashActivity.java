@@ -24,19 +24,14 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+
 
         setContentView(R.layout.activity_splash);
+
+        setFullScreenView();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -50,13 +45,18 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Write whatever to want to do after delay specified (1 sec)
+
+                //Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                //startActivity(intent);
+                //finish();
+
                 if (mAuth.getCurrentUser() == null) {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    Intent intentx = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intentx);
                     finish();
                 } else {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    Intent intenty = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intenty);
                     finish();
                     Log.d("Handler", "Running Handler");
                 }
@@ -69,4 +69,21 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
+
+    protected void setFullScreenView() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            );
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+
 }

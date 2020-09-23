@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_title_health_card"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:elevation="10dp"
             app:cardCornerRadius="10dp">
@@ -63,7 +63,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginBottom="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -181,9 +181,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="5dp">
 
                     <TextView
                         android:id="@+id/tv_child_weightxx"
@@ -205,7 +205,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/child_immunization"
+            android:id="@+id/child_general_health"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/child_biodata"
@@ -242,13 +242,13 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="0dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Total Income"
+                        android:text="Communication"
                         android:textSize="18sp" />
 
                     <TextView
@@ -276,17 +276,133 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="25dp"
+                    android:layout_marginBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Gross motor"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalExpensesx"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="end"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Fine motor"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalExpensesxx"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="end"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Problem solving"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalExpensesxxxx"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="end"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Personal-social"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvTotalExpensesxzsd"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="end"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="25dp"
                     android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Total Expenses"
+                        android:text="Overall"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tvTotalExpensesx"
+                        android:id="@+id/tvTotalExpensesxer"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -309,7 +425,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/child_immunization"
+            android:layout_below="@+id/child_general_health"
             android:text="Upcoming Clinic visits"
             android:textSize="20sp"
             android:textStyle="bold" />
