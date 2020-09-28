@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        currentUser.getUid();
+        user_id = currentUser.getUid();
 
-        Log.d(TAG, "currentUser >>>>>>> : " + currentUser.getUid() + "   TuAANhCUIsNQGpFJNQdFVWkRJyB3");
+        //Log.d(TAG, "currentUser >>>>>>> : " + currentUser.getUid() + "   TuAANhCUIsNQGpFJNQdFVWkRJyB3");
     }
 
     private void prepareClinicData(ArrayList<Clinic> clinicList) {
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getChildren() {
         db.collection("children")
-                .whereEqualTo("parent_id", "TuAANhCUIsNQGpFJNQdFVWkRJyB3")
+                .whereEqualTo("parent_id", user_id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

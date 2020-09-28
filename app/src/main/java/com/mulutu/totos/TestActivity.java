@@ -4,33 +4,24 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.mulutu.totos.models.Child;
-
-public class ChildDetailsActivity extends AppCompatActivity {
-
-    private final String TAG = getClass().getSimpleName();
-    private String child_id;
-    private Child child;
-    private TextView tv_name, tv_more;
+public class TestActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
+
+    private String category_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,50 +33,16 @@ public class ChildDetailsActivity extends AppCompatActivity {
 
         prepareVariables();
 
-        getChildData();
-
         floatingButton();
     }
 
     private void prepareVariables() {
-        child_id = getIntent().getStringExtra("child_id");
+        category_id = getIntent().getStringExtra("child_id");
         db = FirebaseFirestore.getInstance();
-
-        tv_name = (TextView)findViewById(R.id.tv_child_name);
-        tv_more = (TextView)findViewById(R.id.tv_more);
-        tv_more.setText(Html.fromHtml("<font color=\"blue\"><u>Take test</u></font>"));
-        tv_more.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(ChildDetailsActivity.this, TakeTestActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void getChildData() {
-        DocumentReference docRef = db.collection("children").document(child_id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        child = document.toObject(Child.class);
-                        child.set_id(child_id);
-
-                        tv_name.setText(child.getFirst_name() + " " + child.getLast_name());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
     }
 
     private void prepareToolbar() {
-        setContentView(R.layout.activity_child_details);
+        setContentView(R.layout.activity_test);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

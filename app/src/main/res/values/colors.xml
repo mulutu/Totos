@@ -9,5 +9,6 @@
     <color name="colorText">#666666</color>
     <color name="colorGray">#cccccc</color>
     <color name="colorDarkGray">#aaaaaa</color>
+    <color name="colorTextBlue">#3567E3</color>
 
 </resources>

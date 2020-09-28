@@ -21,4 +21,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_child_details">ChildDetailsActivity</string>
+    <string name="title_activity_take_test">TakeTestActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>
